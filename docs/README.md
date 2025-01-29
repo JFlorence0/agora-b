@@ -18,7 +18,7 @@ Agora is an open platform that allows US citizens to vote on open policies and t
 | **Java 21** | Backend API Logic |
 | **Spring Boot 3.4.2** | API Framework |
 | **Gradle 8** | Build Automation |
-| **PostgreSQL (Planned)** | Database for storing votes & policies |
+| **PostgreSQL** | Database for storing votes & policies |
 | **Git & GitHub** | Version Control |
 
 ---
@@ -30,6 +30,7 @@ Make sure you have the following installed:
 - **Java 21+**
 - **Gradle 8+**
 - **VS Code** (or IntelliJ IDEA)
+- **PostgreSQL 14+**
 
 ---
 
