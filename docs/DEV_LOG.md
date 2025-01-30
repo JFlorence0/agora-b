@@ -54,3 +54,39 @@ http://localhost:8080/test/db
 - Set up a `UserRepository` to interact with the database.  
 
 ---
+
+## [2025-01-29] Implemented User Model, Repository, Service, and Controller
+
+### ✅ Step 1: Created the `User` Model
+- Added a new `User` entity in `src/main/java/com/agora/model/User.java`
+- Fields: `id`, `email`, `password`, `username`, `createdAt`, `updatedAt`
+- Used `@Entity` to map it as a database table
+- Added lifecycle hooks (`@PrePersist` and `@PreUpdate`) to manage timestamps
+
+### ✅ Step 2: Created `UserRepository`
+- Defined `UserRepository` interface in `src/main/java/com/agora/repository/UserRepository.java`
+- Extended `JpaRepository<User, Long>` to provide built-in database operations
+- Added custom queries:
+  - `Optional<User> findByEmail(String email);`
+  - `Optional<User> findByUsername(String username);`
+
+### ✅ Step 3: Implemented `UserService`
+- Created `UserService.java` in `src/main/java/com/agora/service/`
+- Injected `UserRepository` using constructor injection
+- Implemented business logic methods:
+  - `getAllUsers()`
+  - `getUserByEmail(String email)`
+  - `getUserByUsername(String username)`
+  - `createUser(User user)`
+
+### ✅ Step 4: Implemented `UserController`
+- Created `UserController.java` in `src/main/java/com/agora/controller/`
+- Exposed REST API endpoints:
+  - `GET /users/` → Fetch all users
+  - `GET /users/{email}` → Fetch user by email
+  - `GET /users/username/{username}` → Fetch user by username
+  - `POST /users/create` → Create a new user
+
+### ✅ Step 5: Tested Endpoints
+- Successfully tested all endpoints using **Postman** and `curl`
+- Confirmed that user creation, retrieval by email, and retrieval by username all work
