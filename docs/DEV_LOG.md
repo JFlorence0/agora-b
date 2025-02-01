@@ -90,3 +90,23 @@ http://localhost:8080/test/db
 ### ✅ Step 5: Tested Endpoints
 - Successfully tested all endpoints using **Postman** and `curl`
 - Confirmed that user creation, retrieval by email, and retrieval by username all work
+
+---
+
+## [2025-02-01] Implemented User Registration & Authentication with Password Encryption
+
+1. **Updated the User Model**  
+- Added @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) to user password.
+- Ensured the password field is received in requests but not returned in responses
+- Verified that User.java correctly maps JSON data
+
+2. **Implemented Secure Password Storage**  
+- Added BCrypt password hashing before storing user passwords
+- Implemented hashing logic inside UserService.createUser(User user)
+
+3. **Implemented the UserController for Registration**  
+- updated /users/create endpoint, handles password hashing.
+
+4. **Successfully Tested Endpoints**
+- POST /users/create → Creates users securely with hashed passwords
+- Tested in Insomnia and verified database entries
