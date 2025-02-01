@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 // For timestamps etc
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 // Marks the class as a database table
 @Entity
 // Declares the name of the table in Postgres
@@ -22,6 +25,7 @@ public class User {
     private String email;
 
     // REQUIRED
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 

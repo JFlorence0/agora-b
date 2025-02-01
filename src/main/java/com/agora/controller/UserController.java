@@ -2,10 +2,14 @@ package com.agora.controller;
 
 import com.agora.model.User;
 import com.agora.service.UserService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 
 // Marks this as the REST API controller
 @RestController
@@ -40,7 +44,24 @@ public class UserController {
 
     // Create a new user
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        try {
+            User newUser = userService.createUser(user);
+            
+            // Create a structured JSON response
+            Map<String, Object> response = Map.of(
+                "message", "User registered successfully!",
+                "user", Map.of(
+                    "id", newUser.getId(),
+                    "email", newUser.getEmail(),
+                    "username", newUser.getUsername()
+                )
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+        }
     }
+
 }
