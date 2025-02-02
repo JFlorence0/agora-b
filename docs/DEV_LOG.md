@@ -88,7 +88,7 @@ http://localhost:8080/test/db
   - `POST /users/create` → Create a new user
 
 ### ✅ Step 5: Tested Endpoints
-- Successfully tested all endpoints using **Postman** and `curl`
+- Successfully tested all endpoints using **Insomnia** and `curl`
 - Confirmed that user creation, retrieval by email, and retrieval by username all work
 
 ---
@@ -133,3 +133,32 @@ http://localhost:8080/test/db
 5. **Successfully Tested Tag Creation & Retrieval**
 - Verified that duplicate tags are not created.
 - Tested basic tag functionality in the database.
+
+## [2025-02-02] Implemented Issue Model, Repository, Service, and Controller
+
+1. **Created the Issue Model**  
+- Defined Issue entity with fields for title, description, status, type, region, sponsor, and reference ID.
+- Made a Many-to-Many relationship with Tag for issue categorization.
+- Used @PrePersist to automatically set createdAt timestamp.
+- Added isActive() method to determine whether an issue is open for voting.
+
+2. **Implemented IssueRepository**  
+- Added findByStatus(IssueStatus status) → Fetches issues by status (Active, Passed, etc.).
+- Added findByIssueType(IssueType issueType) → Fetches issues by type (Law, Election, Policy, etc.).
+- Added findByRegion(IssueRegion region) → Fetches issues by jurisdiction.
+- Added findOpenVotingIssues() → Retrieves issues that are currently open for voting.
+
+3. **Developed IssueService**  
+- Implemented methods for creating, updating, deleting, and retrieving issues.
+
+4. **Built IssueController for REST API Access**
+- GET /issues → Fetches all issues.
+- GET /issues/{id} → Fetches a specific issue by ID.
+- GET /issues/active → Fetches only active issues.
+- GET /issues/open-voting → Fetches only issues currently open for voting.
+- POST /issues → Creates a new issue.
+- PUT /issues/{id} → Updates an existing issue.
+- DELETE /issues/{id} → Deletes an issue if it exists.
+
+5. **Built and Tested**
+- Verified that CRUD operations work using Insomnia.
