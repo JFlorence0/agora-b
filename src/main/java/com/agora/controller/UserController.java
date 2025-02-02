@@ -1,6 +1,6 @@
 package com.agora.controller;
 
-import com.agora.model.User;
+import com.agora.models.User;
 import com.agora.service.UserService;
 
 import org.springframework.http.HttpStatus;

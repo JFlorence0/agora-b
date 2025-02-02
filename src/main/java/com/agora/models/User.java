@@ -1,11 +1,10 @@
-package com.agora.model;
+package com.agora.models;
 
 // This allows the defined class to be mapped to a database table
 import jakarta.persistence.*;
 // For timestamps etc
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 // Marks the class as a database table

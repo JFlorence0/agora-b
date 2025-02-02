@@ -1,7 +1,8 @@
 package com.agora.service;
 
-import com.agora.model.User;
-import com.agora.repository.UserRepository;
+import com.agora.models.User;
+import com.agora.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
