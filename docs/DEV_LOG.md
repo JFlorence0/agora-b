@@ -93,7 +93,7 @@ http://localhost:8080/test/db
 
 ---
 
-## [2025-02-01] Implemented User Registration & Authentication with Password Encryption
+## [2025-01-31] Implemented User Registration & Authentication with Password Encryption
 
 1. **Updated the User Model**  
 - Added @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) to user password.
@@ -110,3 +110,26 @@ http://localhost:8080/test/db
 4. **Successfully Tested Endpoints**
 - POST /users/create → Creates users securely with hashed passwords
 - Tested in Insomnia and verified database entries
+
+## [2025-02-01] Implemented Tag System for Issue Categorization
+
+1. **Created the Tag Model**  
+- Added a Tag entity with a name field (unique and required).
+- Ensured Tag can be used for multiple features (Issue categorization, User follows).
+
+2. **Implemented TagRepository**  
+- Added a findByName(String name) method to prevent duplicate tags.
+- Enabled basic CRUD operations for tags.
+
+3. **Developed TagService for Efficient Tag Management**  
+- Implemented findOrCreateTag(String name) to reuse existing tags or create new ones.
+- Created getAllTags() to fetch all available tags.
+
+4. **Implemented TagController (Basic API for Tags)**
+- GET /tags → Fetches all available tags.
+- POST /tags?name=Education → Creates a new tag if it doesn't exist.
+
+
+5. **Successfully Tested Tag Creation & Retrieval**
+- Verified that duplicate tags are not created.
+- Tested basic tag functionality in the database.

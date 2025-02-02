@@ -1,10 +1,11 @@
-package com.agora.repository;
-
-import com.agora.model.User;
+package com.agora.repositories;
 
 // Allows built in DB operations
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.agora.models.User;
+
 // Safe querying
 import java.util.Optional;
 
