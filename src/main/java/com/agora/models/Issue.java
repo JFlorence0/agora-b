@@ -36,7 +36,7 @@ public class Issue {
     private IssueRegion region;  // Renamed from IssueRegion to Region for clarity
 
     @Column(length = 100, unique = true)
-    private String referenceId;  // Nullable removed since unique + nullable isn't ideal
+    private String referenceId;
 
     @Column(length = 255)
     private String sponsor;

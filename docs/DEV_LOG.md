@@ -4,14 +4,14 @@ This document tracks the development progress of the Agora backend, built with J
 
 ---
 
-## 🗓 January 28, 2025 - Project Initialization  
+## January 28, 2025 - Project Initialization  
 
-### ✅ What I Did  
+### What I Did  
 - Created the **Agora Backend** project using **Spring Boot**.  
 - Set up **Gradle** as the build tool instead of Maven.  
 - Successfully ran the Spring Boot application to verify everything was working.  
 
-### 🤔 Why I Chose Gradle Over Maven  
+### Why I Chose Gradle Over Maven  
 - **Gradle is newer and actively evolving**, while Maven has been around longer but feels more rigid.  
 - **Performance:** Gradle builds are generally faster due to incremental builds and better caching.  
 - **Flexibility:** Gradle’s scripting (Groovy/Kotlin) provides more control over dependencies and configurations.  
@@ -25,16 +25,16 @@ This document tracks the development progress of the Agora backend, built with J
 
 ---
 
-## 🗓 January 29, 2025 - Database Setup and Connection Test  
+## January 29, 2025 - Database Setup and Connection Test  
 
-### ✅ What I Did  
+### What I Did  
 - Created a **PostgreSQL database** named `agora`.  
 - Connected the **Spring Boot application** to PostgreSQL by configuring `application.properties`.  
 - Created a **DatabaseTestController** to verify the connection.  
 - Successfully tested the connection by visiting: http://localhost:8080/test/db
-- The API returned `"✅ Connected to: PostgreSQL"`, confirming the setup worked correctly.  
+- The API returned `"Connected to: PostgreSQL"`, confirming the setup worked correctly.  
 
-### 🛠 Commands Used  
+### Commands Used  
 1. **Created the database in PostgreSQL:**  
 CREATE DATABASE agora;
 2. **Started the PostgreSQL shell:**  
@@ -44,11 +44,11 @@ psql -U postgres
 4. **Tested the connection in the browser:**  
 http://localhost:8080/test/db
 
-### 🔥 Challenges  
+### Challenges  
 - Initially encountered `No qualifying bean of type 'javax.sql.DataSource' available`.  
 - Fixed it by ensuring **database credentials were correctly set** in `application.properties`.  
 
-### 🚀 Next Steps  
+### Next Steps  
 - **Tonight:** Start working on the `User` model.  
 - Define a `User` entity with basic fields (`id`, `name`, `email`).  
 - Set up a `UserRepository` to interact with the database.  
@@ -57,20 +57,20 @@ http://localhost:8080/test/db
 
 ## [2025-01-29] Implemented User Model, Repository, Service, and Controller
 
-### ✅ Step 1: Created the `User` Model
+### Step 1: Created the `User` Model
 - Added a new `User` entity in `src/main/java/com/agora/model/User.java`
 - Fields: `id`, `email`, `password`, `username`, `createdAt`, `updatedAt`
 - Used `@Entity` to map it as a database table
 - Added lifecycle hooks (`@PrePersist` and `@PreUpdate`) to manage timestamps
 
-### ✅ Step 2: Created `UserRepository`
+### Step 2: Created `UserRepository`
 - Defined `UserRepository` interface in `src/main/java/com/agora/repository/UserRepository.java`
 - Extended `JpaRepository<User, Long>` to provide built-in database operations
 - Added custom queries:
   - `Optional<User> findByEmail(String email);`
   - `Optional<User> findByUsername(String username);`
 
-### ✅ Step 3: Implemented `UserService`
+### Step 3: Implemented `UserService`
 - Created `UserService.java` in `src/main/java/com/agora/service/`
 - Injected `UserRepository` using constructor injection
 - Implemented business logic methods:
@@ -79,7 +79,7 @@ http://localhost:8080/test/db
   - `getUserByUsername(String username)`
   - `createUser(User user)`
 
-### ✅ Step 4: Implemented `UserController`
+### Step 4: Implemented `UserController`
 - Created `UserController.java` in `src/main/java/com/agora/controller/`
 - Exposed REST API endpoints:
   - `GET /users/` → Fetch all users
@@ -87,7 +87,7 @@ http://localhost:8080/test/db
   - `GET /users/username/{username}` → Fetch user by username
   - `POST /users/create` → Create a new user
 
-### ✅ Step 5: Tested Endpoints
+### Step 5: Tested Endpoints
 - Successfully tested all endpoints using **Insomnia** and `curl`
 - Confirmed that user creation, retrieval by email, and retrieval by username all work
 
@@ -162,3 +162,30 @@ http://localhost:8080/test/db
 
 5. **Built and Tested**
 - Verified that CRUD operations work using Insomnia.
+
+## [2025-02-05] Implemented Vote and VoteOption Models, Repositories, Services, and Controllers
+
+1. **Created Vote and VoteOption Models**  
+- Implemented the Vote entity to record a user’s vote on an issue by linking to User, Issue, and the selected VoteOption.
+- Enforced a unique constraint to guarantee one vote per user per issue and added createdAt and updatedAt fields managed by @PrePersist and @PreUpdate callbacks.
+- Developed the VoteOption entity to define the available voting choices for an Issue, including fields for label, sortOrder (defaulted to 0), and audit timestamps.
+
+
+2. **Created VoteRepository and VoteOptionRepository**  
+- Created VoteRepository extending JpaRepo, including a custom method to locate a vote by a specific user on an issue.
+- Developed VoteOptionRepository extending JpaRepo with a method to retrieve all vote options associated with a given Issue.
+
+3. **Added VoteService**  
+- Implemented business logic for casting, updating, and deleting votes, ensuring that votes are only cast on active issues and that the chosen VoteOption is valid for the Issue.
+- Enforced the rule that each user can vote only once per issue and handled transactional processing to maintain data integrity.
+
+4. **Added VoteOptionService**
+- CRUD operations for vote options, ensuring they are correctly tied to their respective Issue.
+- Provided methods to create, retrieve, update, and delete VoteOption entities while maintaining proper associations with the Issue.
+
+5. **Built Controllers for REST API Access**
+- Created VoteController with endpoints to cast (POST), update (PUT), and delete (DELETE) votes.
+- Developed VoteOptionController with endpoints to create (POST), retrieve (GET), update (PUT), and delete (DELETE) vote options.
+- Verified that the endpoints integrate seamlessly with the existing platform and adhere to the defined business rules.
+
+**Untested Endpoints For Voting**
