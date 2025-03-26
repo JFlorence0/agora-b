@@ -59,4 +59,19 @@ public class UserService {
         // Save and return the user
         return userRepository.save(user);
     }
+
+    // Authenticate user by email and password
+    public User login(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        User user = userOptional.get();
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        return user;
+    }
 }

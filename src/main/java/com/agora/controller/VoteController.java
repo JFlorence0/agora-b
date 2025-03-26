@@ -25,7 +25,10 @@ public class VoteController {
      */
     @PostMapping("/issues/vote/{issueId}")
     public ResponseEntity<Vote> castVote(
+            /* PathVariable from url (issueId) /issues/vote/{issueId} */
             @PathVariable Long issueId,
+            /* RequestParam comes from the additional query string 
+            /api/issues/vote/123?voteOptionId=5&userId=10 */
             @RequestParam Long voteOptionId,
             @RequestParam Long userId) {
         Vote vote = voteService.castVote(issueId, voteOptionId, userId);

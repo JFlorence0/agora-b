@@ -58,3 +58,5 @@ target/
 pom.xml.tag
 pom.xml.releaseBackup
 dependency-reduced-pom.xml
+
+.env

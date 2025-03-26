@@ -64,4 +64,35 @@ public class UserController {
         }
     }
 
+    // Login endpoint
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
+        try {
+            String email = loginRequest.get("email");
+            String password = loginRequest.get("password");
+
+            if (email == null || password == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Email and password are required"));
+            }
+
+            User authenticatedUser = userService.login(email, password);
+            
+            // Create a structured JSON response
+            Map<String, Object> response = Map.of(
+                "message", "Login successful!",
+                "user", Map.of(
+                    "id", authenticatedUser.getId(),
+                    "email", authenticatedUser.getEmail(),
+                    "username", authenticatedUser.getUsername()
+                )
+            );
+
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("error", e.getMessage()));
+        }
+    }
+
 }

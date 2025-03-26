@@ -18,7 +18,7 @@ public class IssueController {
     }
 
     // 1️⃣ Fetch all issues
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Issue>> getAllIssues() {
         return ResponseEntity.ok(issueService.getAllIssues());
     }
@@ -44,7 +44,7 @@ public class IssueController {
     }
 
     // 5️⃣ Create a new issue
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
         Issue createdIssue = issueService.createIssue(issue);
         return ResponseEntity.ok(createdIssue);

@@ -33,7 +33,7 @@ public class Issue {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private IssueRegion region;  // Renamed from IssueRegion to Region for clarity
+    private IssueRegion region;
 
     @Column(length = 100, unique = true)
     private String referenceId;
